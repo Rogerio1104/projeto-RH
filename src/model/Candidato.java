@@ -3,21 +3,20 @@ package model;
 import java.time.LocalDate;
 
 public class Candidato {
-
     private Integer codigo;
     private String descCandidato;
     private LocalDate dataNascimento;
     private String cpf;
     private String descCurriculo;
-    private String emailCandidato;
+    private String descEmail;
 
-    public String getEmailCandidato() {
-        return emailCandidato;
+    public enum CargosSistema{
+        RH,
+        CANDIDATO,
+        PROCESSOSELETIVO;
     }
 
-    public void setEmailCandidato(String emailCandidato) {
-        this.emailCandidato = emailCandidato;
-    }
+
 
     public Integer getCodigo() {
         return codigo;
@@ -57,5 +56,13 @@ public class Candidato {
 
     public void setDescCurriculo(String descCurriculo) {
         this.descCurriculo = descCurriculo;
+    }
+
+    public String getDescEmail() {
+        return descEmail;
+    }
+
+    public void setDescEmail(String descEmail) {
+        this.descEmail = descEmail;
     }
 }

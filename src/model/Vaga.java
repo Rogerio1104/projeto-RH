@@ -1,17 +1,16 @@
 package model;
 
-public class Vaga {
-
-    private Integer codigo;
+public class Vaga extends Status {
+    private Integer codigoVaga;
     private String descVaga;
     private String descRequisitos;
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getCodigoVaga() {
+        return codigoVaga;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setCodigoVaga(Integer codigoVaga) {
+        this.codigoVaga = codigoVaga;
     }
 
     public String getDescVaga() {
