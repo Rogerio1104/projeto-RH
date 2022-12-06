@@ -5,11 +5,19 @@ import java.time.LocalDate;
 public class Candidato {
 
     private Integer codigo;
-    private String descCandidato;
+    private String nomeCandidato;
     private LocalDate dataNascimento;
     private String cpf;
     private String descCurriculo;
     private String emailCandidato;
+
+    public String getNomeCandidato() {
+        return nomeCandidato;
+    }
+
+    public void setNomeCandidato(String nomeCandidato) {
+        this.nomeCandidato = nomeCandidato;
+    }
 
     public String getEmailCandidato() {
         return emailCandidato;
@@ -23,16 +31,9 @@ public class Candidato {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public int setCodigo(Integer codigo) {
         this.codigo = codigo;
-    }
-
-    public String getDescCandidato() {
-        return descCandidato;
-    }
-
-    public void setDescCandidato(String descCandidato) {
-        this.descCandidato = descCandidato;
+        return 0;
     }
 
     public LocalDate getDataNascimento() {

@@ -2,16 +2,15 @@ package repository;
 
 import model.Candidato;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RhRepository {
+public class CandidatoRepository {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/aulapoo";
+        String url = "jdbc:mysql://localhost:3306/db_rh";
         Connection connection = DriverManager.getConnection(url, "root", "");
 
 
@@ -22,8 +21,8 @@ public class RhRepository {
 
         PreparedStatement stmt = connection.prepareStatement("insert into " +
                 "candidato values(?, ?, ?, ?, ?, ?)");
-        stmt.setInt(1, candidato.getCodigo().intValue());
-        stmt.setString(2, candidato.getDescCandidato());
+        stmt.setInt(1, candidato.setCodigo(null));
+        stmt.setString(2, candidato.getNomeCandidato());
         stmt.setString(3, String.valueOf(candidato.getDataNascimento()));
         stmt.setString(4, (candidato.getCpf()));
         stmt.setString(5, candidato.getDescCurriculo());
@@ -34,5 +33,20 @@ public class RhRepository {
         connection.close();
 
     }
-
 }
+    public Integer proximoCodigo() throws SQLException, ClassNotFoundException {
+
+        List<Candidato> candidatos = new ArrayList<>();
+
+        Connection connection = getConnection();
+
+        PreparedStatement stmt = connection.prepareStatement("select max(cd_candidato) from candidato ");
+        ResultSet resultSet = stmt.executeQuery();
+
+        while (resultSet.next()){
+            return resultSet.getInt(1) + 1;
+        }
+        return 1;
+    }
+}
+

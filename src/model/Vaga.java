@@ -1,10 +1,30 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Vaga {
 
     private Integer codigo;
     private String descVaga;
     private String descRequisitos;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
+    }
 
     public Integer getCodigo() {
         return codigo;

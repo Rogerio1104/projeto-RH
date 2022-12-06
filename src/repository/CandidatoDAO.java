@@ -1,19 +1,84 @@
-
 package repository;
 
 import model.Candidato;
-import model.Vaga;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CandidatoDAO{
-    private static List<Candidato> candidatos = new ArrayList<>();
+public final class CandidatoDAO implements IGenericDAO<Candidato> {
 
-    public static List<Candidato> findCandidatos(){ return candidatos;}
+    static List<Candidato> candidatos = new ArrayList<>();
 
-    public static void save(Candidato candidato){candidatos.add(candidato);}
 
-    public static void save(List<Candidato> candidatoList){
-        candidatos.addAll(candidatoList);
+
+    @Override
+    public void salvar(Candidato candidato) {
+        CandidatoRepository   candidatoRepository = new CandidatoRepository();
+        try {
+            if(candidato.getCodigo() != null){
+                candidatoRepository.insere(candidato);
+            }else{
+                candidato.setCodigo(candidatoRepository.proximoId().longValue());
+                candidatoRepository.insere(candidato);
+            }
+        } catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+        candidatos.add(candidato);
     }
+
+    @Override
+    public void remover(Candidato candidato) throws SQLException, ClassNotFoundException {
+        CandidatoRepository candidatoRepository = new CandidatoRepository();
+        candidatoRepository.delete(candidato);
+    }
+
+
+    @Override
+    public void salvar(Candidato objeto) {
+
+    }
+
+    @Override
+    public void remover(Candidato objeto) throws SQLException, ClassNotFoundException {
+
+    }
+
+    @Override
+    public List<Candidato> buscarTodos() {
+        CandidatoRepository   candidatoRepository = new CandidatoRepository();
+        try {
+            candidatos = candidatoRepository.busca();
+        } catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(candidatos);
+        return candidatos;
+
+    }
+
+    @Override
+    public List<Candidato> buscarPorNome(String nome) {
+        List<Candidato> candidatosFiltrados = new ArrayList<>();
+        for (Candidato candidato : candidatos) {
+            if (candidato.getNomeCandidato().contains(nome)) {
+                candidatosFiltrados.add(candidato);
+            }
+        }
+        return candidatosFiltrados;
+    }
+
+    public Object[] findPessoasInArray() {
+        List<Candidato> candidatos = buscarTodos();
+        List<String> candidatosNomes = new ArrayList<>();
+
+        for (Candidato candidato : candidatos) {
+            candidatosNomes.add(candidato.getNomeCandidato());
+        }
+
+        return candidatosNomes.toArray();
+    }
+
 }
