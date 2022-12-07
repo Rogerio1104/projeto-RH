@@ -19,7 +19,7 @@ public final class CandidatoDAO implements IGenericDAO<Candidato> {
             if(candidato.getCodigo() != null){
                 candidatoRepository.insere(candidato);
             }else{
-                candidato.setCodigo(candidatoRepository.proximoId().longValue());
+                candidato.setCodigo((int) candidatoRepository.proximoCodigo().longValue());
                 candidatoRepository.insere(candidato);
             }
         } catch (SQLException | ClassNotFoundException e){

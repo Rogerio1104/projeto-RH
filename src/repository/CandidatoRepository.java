@@ -33,7 +33,7 @@ public class CandidatoRepository {
         connection.close();
 
     }
-}
+
     public Integer proximoCodigo() throws SQLException, ClassNotFoundException {
 
         List<Candidato> candidatos = new ArrayList<>();
@@ -48,5 +48,27 @@ public class CandidatoRepository {
         }
         return 1;
     }
+    public void update(Candidato candidato) throws SQLException, ClassNotFoundException {
+        Connection connection = getConnection();
+        PreparedStatement stmt = connection.prepareStatement("update candidato "+ "SET nomeCandidato = ?, cpf = ? WHERE cd_candidato = ?");
+        stmt.setString(1,candidato.getNomeCandidato());
+        stmt.setString(2, candidato.getCpf());
+        stmt.setInt(3,candidato.getCodigo().intValue());
+        int i = stmt.executeUpdate();
+        System.out.println(i + "linhas atualizadas");
+        connection.close();
+    }
+    public void delete (Candidato candidato) throws SQLException, ClassNotFoundException{
+        Connection connection = getConnection();
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM pessoa " + " WHERE id = ? ");
+
+        stmt.setInt(1,candidato.getCodigo().intValue());
+        stmt.executeUpdate();
+        connection.close();
+    }
+
+
+
 }
+
 
